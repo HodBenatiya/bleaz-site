@@ -178,7 +178,7 @@
   })();
 
 
-  /* ---------- HERO v7: Match graph (two sides flowing into one match) ---------- */
+  /* ---------- MATCH GRAPH v8 (own section, scroll-triggered) (two sides flowing into one match) ---------- */
   (function(){
     var host=document.querySelector('.tg-graph');if(!host)return;
     var inner=host.querySelector('.tg-inner'),svg=host.querySelector('.tg-lines'),NS='http://www.w3.org/2000/svg';
@@ -228,10 +228,21 @@
       html+='<span class="tn tn-'+n.k+'" data-id="'+n.id+'"><i class="ic ic-'+n.c+'"><svg><use href="#i-'+n.ic+'"/></svg></i>'+n.t+'</span>';
     });
     AV.forEach(function(a,i){
-      html+='<span class="tav" style="left:'+(a.x-a.s/2)+'px;top:'+(a.y-a.s/2)+'px;width:'+a.s+'px;height:'+a.s+'px;--ring:'+a.ring+';--d:'+(0.5+i*0.12)+'s"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="20" fill="#EEF1F5"/><path d="M5 40c1-9 7-13 15-13s14 4 15 13Z" fill="'+a.shirt+'"/><circle cx="20" cy="16.5" r="7.2" fill="'+a.skin+'"/><path d="M12.6 15.2c.3-5 3.6-7.6 7.6-7.6s7.4 2.7 7.6 7.4c-1.9-1.6-4.4-2.6-7.7-2.6-3 0-5.5.9-7.5 2.8Z" fill="#2B2F36"/></svg></span>';
+      html+='<span class="tav" style="left:'+(a.x-a.s/2)+'px;top:'+(a.y-a.s/2)+'px;width:'+a.s+'px;height:'+a.s+'px;--ring:'+a.ring+';--d:'+(0.7+i*0.22).toFixed(2)+'s;--bob:'+(3.2+(i%3)*0.7)+'s;--bd:'+(-i*0.6)+'s"><b><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="20" fill="#EEF1F5"/><path d="M5 40c1-9 7-13 15-13s14 4 15 13Z" fill="'+a.shirt+'"/><circle cx="20" cy="16.5" r="7.2" fill="'+a.skin+'"/><path d="M12.6 15.2c.3-5 3.6-7.6 7.6-7.6s7.4 2.7 7.6 7.4c-1.9-1.6-4.4-2.6-7.7-2.6-3 0-5.5.9-7.5 2.8Z" fill="#2B2F36"/></svg></b></span>';
     });
     inner.insertAdjacentHTML('beforeend',html);
-    inner.querySelectorAll('[data-id]').forEach(function(x,i){el[x.dataset.id]=x;x.style.setProperty('--d',(0.15+i*0.04)+'s');});
+    inner.querySelectorAll('[data-id]').forEach(function(x){el[x.dataset.id]=x;});
+    /* choreography (seconds): channels + organisation appear, lines draw from both sides step by step, both arrive at Match together, then the output */
+    var STEP=0.32,T0=1.1,TM=T0+4*STEP+0.07+0.55,DL={hc:0,hs:0.05,hk:0.05,o1:0.25,m:TM+0.05,out:TM+0.95};
+    for(var q=1;q<=6;q++)DL['c'+q]=0.15+(q-1)*0.07;
+    for(q=1;q<=5;q++){DL['s'+q]=T0+(q-1)*STEP;DL['k'+q]=T0+(q-1)*STEP;}
+    Object.keys(DL).forEach(function(id){el[id]&&el[id].style.setProperty('--d',DL[id].toFixed(2)+'s');});
+    function edgeT(e,i){var f=e[0],t=e[1];
+      if(/^c/.test(f))return[0.55+(+f.slice(1)-1)*0.04,0.6];
+      if(f==='o1')return[0.55,0.6];
+      if(t==='m')return[T0+4*STEP+0.07,0.55];
+      if(f==='m')return[TM+0.55,0.4];
+      var n=+f.slice(1);return[T0+(n-1)*STEP+0.05,0.27];}
     function place(){
       N.forEach(function(n){var e=el[n.id];var w=e.offsetWidth,h=e.offsetHeight;
         var left=n.r!=null?n.r-w:n.x-w/2;e.style.left=left+'px';e.style.top=(n.y-h/2)+'px';
@@ -242,28 +253,36 @@
     function build(){
       place();svg.innerHTML='';paths=[];
       /* faint target rings behind the match node */
-      [70,120,175].forEach(function(r){var c=document.createElementNS(NS,'circle');c.setAttribute('cx',580);c.setAttribute('cy',392);c.setAttribute('r',r);c.setAttribute('class','tg-ring');svg.appendChild(c);});
+      [70,120,175].forEach(function(r){var c=document.createElementNS(NS,'circle');c.setAttribute('cx',580);c.setAttribute('cy',392);c.setAttribute('r',r);c.setAttribute('class','tg-ring');c.style.setProperty('--d',(TM+(r-70)/350).toFixed(2)+'s');svg.appendChild(c);});
       E.forEach(function(e,i){var a=byId[e[0]],b=byId[e[1]],d;
         if(e[2]==='v'){d='M'+a.cx+' '+a.B+' L'+b.cx+' '+b.T;}
         else{var x1,x2;if(b.cx<a.cx){x1=a.L;x2=b.R;}else{x1=a.R;x2=b.L;}var mx=(x1+x2)/2;d='M'+x1+' '+a.y+' C'+mx+' '+a.y+' '+mx+' '+b.y+' '+x2+' '+b.y;}
         var p=document.createElementNS(NS,'path');p.setAttribute('d',d);p.setAttribute('class','tg-ln'+(e[1]==='m'||e[1]==='out'?' tg-ln-hot':''));svg.appendChild(p);
-        paths.push({p:p,from:e[0],to:e[1],len:p.getTotalLength()});});
+        var L=p.getTotalLength(),tt=edgeT(e,i);p.style.cssText='--len:'+L.toFixed(1)+';--d:'+tt[0].toFixed(2)+'s;--dur:'+tt[1]+'s';
+        paths.push({p:p,from:e[0],to:e[1],len:L});});
     }
     function fit(){var w=host.clientWidth;var k=Math.min(1,w/1160);inner.style.transform='scale('+k+')';host.style.height=(545*k)+'px';}
     function init(){if(getComputedStyle(host).display==='none')return;build();fit();}
-    (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(function(){init();host.classList.add('in');});
+    var vis=false,live=false,started=false;
+    function start(){if(started)return;started=true;host.classList.add('in');
+      if(RM){live=false;return;}
+      setTimeout(function(){live=true;},(TM+1.2)*1000);}
+    (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(function(){init();
+      if(RM||!('IntersectionObserver' in window)){start();return;}
+      new IntersectionObserver(function(en,o){if(en[0].isIntersecting){start();o.disconnect();}},{threshold:0.3}).observe(host);});
     addEventListener('resize',function(){fit();});
+    if(!RM&&'IntersectionObserver' in window)new IntersectionObserver(function(en){vis=en[0].isIntersecting;host.classList.toggle('off',!vis);}).observe(host);
     if(RM)return;
-    /* pulses travel edge to edge toward the match */
+    /* pulses keep travelling edge to edge toward the match */
     function nextOf(id){for(var i=0;i<paths.length;i++)if(paths[i].from===id)return paths[i];return null;}
-    var pulses=[],vis=true,last=0,spawnT=0,side=0;
-    new IntersectionObserver(function(en){vis=en[0].isIntersecting;}).observe(host);
+    var pulses=[],last=0,spawnT=0,side=0;
+    window.__graphStart=function(){start();}; /* screenshot tooling only */
     function spawn(){if(!paths.length||pulses.length>9)return;var src;side=1-side;
       if(side){var cs=paths.filter(function(p){return /^c/.test(p.from);});src=cs[Math.random()*cs.length|0];}else src=paths.filter(function(p){return p.from==='o1';})[0];
       var dot=document.createElementNS(NS,'circle');dot.setAttribute('r',3.2);dot.setAttribute('class','tg-pulse '+(side?'pb':'py'));svg.appendChild(dot);
       pulses.push({e:src,t:0,dot:dot});}
-    function tick(now){requestAnimationFrame(tick);if(!vis||document.hidden||!paths.length){last=now;return;}
-      var dt=Math.min(50,now-(last||now));last=now;spawnT+=dt;if(spawnT>900){spawnT=0;spawn();}
+    function tick(now){requestAnimationFrame(tick);if(!live||!vis||document.hidden||!paths.length){last=now;return;}
+      var dt=Math.min(50,now-(last||now));last=now;spawnT+=dt;if(spawnT>700){spawnT=0;spawn();}
       for(var i=pulses.length-1;i>=0;i--){var q=pulses[i];q.t+=dt*0.16/Math.max(40,q.e.len)*1.0;
         if(q.t>=1){if(q.e.to==='m'){el.m.classList.remove('hit');void el.m.offsetWidth;el.m.classList.add('hit');}
           var n=nextOf(q.e.to);if(!n){q.dot.remove();pulses.splice(i,1);if(q.e.to==='out'){el.out.classList.remove('hit');void el.out.offsetWidth;el.out.classList.add('hit');}continue;}
@@ -271,6 +290,15 @@
         var pt=q.e.p.getPointAtLength(q.t*q.e.len);q.dot.setAttribute('cx',pt.x);q.dot.setAttribute('cy',pt.y);}
     }
     requestAnimationFrame(tick);
+  })();
+
+  /* ---------- mobile Match list: simple staggered reveal ---------- */
+  (function(){var L=document.querySelector('.tg-list');if(!L||matchMedia('(prefers-reduced-motion: reduce)').matches||!('IntersectionObserver' in window))return;
+    var it=L.querySelectorAll('.tgl-col h4,.tgl-k,.tgl-chips li,.tgl-steps li,.tgl-match');
+    it.forEach(function(x,i){x.classList.add('tgr');x.style.transitionDelay=Math.min(i*45,1400)+'ms';});
+    var cols=L.querySelectorAll('.tgl-col,.tgl-match');
+    var io2=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.querySelectorAll('.tgr').forEach(function(x){x.classList.add('on')});if(e.target.classList.contains('tgr'))e.target.classList.add('on');io2.unobserve(e.target);}});},{threshold:0.15});
+    cols.forEach(function(c){io2.observe(c);});
   })();
 
   /* ---------- CTA mini team (static, on dark) ---------- */
