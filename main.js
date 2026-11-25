@@ -181,127 +181,121 @@
   })();
 
 
-  /* ---------- MATCH GRAPH v8 (own section, scroll-triggered) (two sides flowing into one match) ---------- */
+  /* ---------- MATCH GRAPH v11 (desktop + mobile layouts, scroll-triggered draw-in, pulses) ---------- */
   (function(){
     var host=document.querySelector('.tg-graph');if(!host)return;
     var inner=host.querySelector('.tg-inner'),svg=host.querySelector('.tg-lines'),NS='http://www.w3.org/2000/svg';
     var RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
-    /* design space 1160x610 (x from left). RTL story: candidates enter on the right, the organisation on the left. */
+    /* each node: desktop coords (x/r,y) in a 1160x545 box, and a mobile layout M in a 320x572 box (RTL story: candidates right, organisation left) */
     var N=[
-      {id:'hc',k:'hd',t:'ערוצי גיוס',x:1060,y:16},
-      {id:'hs',k:'hd',t:'מצד המועמדים',x:745,y:16},
-      {id:'hk',k:'hd',t:'מצד הארגון',x:415,y:16},
-      {id:'c1',k:'ch',t:'שיתופי פעולה עם מכללות ואוניברסיטאות',ic:'cap',c:'p',r:1160,y:60},
-      {id:'c2',k:'ch',t:'רשתות אורגניות',ic:'net',c:'g',r:1160,y:130},
-      {id:'c3',k:'ch',t:'לוחות דרושים',ic:'board',c:'o',r:1160,y:200},
-      {id:'c4',k:'ch',t:'פרסום ממומן במטא',ic:'mega',c:'b',r:1160,y:270},
-      {id:'c5',k:'ch',t:'מאגרי המועמדים שלנו',ic:'db',c:'y',r:1160,y:340},
-      {id:'c6',k:'ch',t:'גיוס יזום מבוסס טכנולוגיה',ic:'bolt',c:'p',r:1160,y:410},
-      {id:'s1',k:'st',t:'קבלת ליד',ic:'inbox',c:'b',x:745,y:72},
-      {id:'s2',k:'st',t:'סינון ראשוני',ic:'filter',c:'g',x:745,y:152},
-      {id:'s3',k:'st',t:'שיחה טלפונית',ic:'phone',c:'o',x:745,y:232},
-      {id:'s4',k:'st',t:'שיחת זום לעומק',ic:'video',c:'p',x:745,y:312},
-      {id:'s5',k:'st',t:'התאמה למשרה',ic:'target',c:'b',x:745,y:392},
-      {id:'o1',k:'org',t:'הארגון שלכם',ic:'building',c:'y',x:120,y:232},
-      {id:'k1',k:'st',t:'לומדים את המשרה',ic:'brief',c:'y',x:415,y:72},
-      {id:'k2',k:'st',t:'פגישה איתכם',ic:'chat',c:'g',x:415,y:152},
-      {id:'k3',k:'st',t:'נכנסים לרצפת העבודה',ic:'headset',c:'o',x:415,y:232},
-      {id:'k4',k:'st',t:'מכירים את האנשים וה-DNA',ic:'dna',c:'p',x:415,y:312},
-      {id:'k5',k:'st',t:'מבינים את מי מחפשים',ic:'eye',c:'b',x:415,y:392},
-      {id:'m',k:'match',t:'Match',x:580,y:392},
-      {id:'out',k:'out',t:'רק המועמד המדויק נשלח אליכם',x:580,y:508}
+      {id:'hc',k:'hd',t:'ערוצי גיוס',x:1060,y:16,M:{x:160,y:10}},
+      {id:'hs',k:'hd',t:'מצד המועמדים',x:745,y:16,M:{hide:1}},
+      {id:'hk',k:'hd',t:'מצד הארגון',x:415,y:16,M:{hide:1}},
+      {id:'c1',k:'ch',t:'שיתופי פעולה עם מכללות ואוניברסיטאות',ic:'cap',c:'p',r:1160,y:60,M:{x:241,y:38,t:'אקדמיה ומכללות'}},
+      {id:'c2',k:'ch',t:'רשתות אורגניות',ic:'net',c:'g',r:1160,y:130,M:{x:79,y:38}},
+      {id:'c3',k:'ch',t:'לוחות דרושים',ic:'board',c:'o',r:1160,y:200,M:{x:241,y:70}},
+      {id:'c4',k:'ch',t:'פרסום ממומן במטא',ic:'mega',c:'b',r:1160,y:270,M:{x:79,y:70}},
+      {id:'c5',k:'ch',t:'מאגרי המועמדים שלנו',ic:'db',c:'y',r:1160,y:340,M:{x:241,y:102,t:'המאגר שלנו'}},
+      {id:'c6',k:'ch',t:'גיוס יזום מבוסס טכנולוגיה',ic:'bolt',c:'p',r:1160,y:410,M:{x:79,y:102,t:'גיוס יזום'}},
+      {id:'s1',k:'st',t:'קבלת ליד',ic:'inbox',c:'b',x:745,y:72,M:{x:241,y:178}},
+      {id:'s2',k:'st',t:'סינון ראשוני',ic:'filter',c:'g',x:745,y:152,M:{x:241,y:234}},
+      {id:'s3',k:'st',t:'שיחה טלפונית',ic:'phone',c:'o',x:745,y:232,M:{x:241,y:290}},
+      {id:'s4',k:'st',t:'שיחת זום לעומק',ic:'video',c:'p',x:745,y:312,M:{x:241,y:346}},
+      {id:'s5',k:'st',t:'התאמה למשרה',ic:'target',c:'b',x:745,y:392,M:{x:241,y:402}},
+      {id:'o1',k:'org',t:'הארגון שלכם',ic:'building',c:'y',x:120,y:232,M:{x:79,y:178}},
+      {id:'k1',k:'st',t:'לומדים את המשרה',ic:'brief',c:'y',x:415,y:72,M:{x:79,y:223}},
+      {id:'k2',k:'st',t:'פגישה איתכם',ic:'chat',c:'g',x:415,y:152,M:{x:79,y:268}},
+      {id:'k3',k:'st',t:'נכנסים לרצפת העבודה',ic:'headset',c:'o',x:415,y:232,M:{x:79,y:313,t:'רצפת העבודה'}},
+      {id:'k4',k:'st',t:'מכירים את האנשים וה-DNA',ic:'dna',c:'p',x:415,y:312,M:{x:79,y:358,t:'האנשים וה-DNA'}},
+      {id:'k5',k:'st',t:'מבינים את מי מחפשים',ic:'eye',c:'b',x:415,y:392,M:{x:79,y:402,t:'מה מחפשים'}},
+      {id:'m',k:'match',t:'Match',x:580,y:392,M:{x:160,y:478}},
+      {id:'out',k:'out',t:'רק המועמד המדויק נשלח אליכם',x:580,y:508,M:{x:160,y:552}}
     ];
-    var AV=[ /* generic illustrated candidates, ring colours from the confetti palette */
-      {x:880,y:168,s:46,ring:'#1868DB',skin:'#E8B48C',shirt:'#4C6B8A'},
-      {x:905,y:308,s:40,ring:'#22A06B',skin:'#A86F4C',shirt:'#8A6BB0'},
-      {x:872,y:462,s:44,ring:'#BF63F3',skin:'#F2C9A0',shirt:'#3F7F6A'},
-      {x:1010,y:488,s:36,ring:'#FCA700',skin:'#7A4E33',shirt:'#B5654A'},
-      {x:612,y:232,s:38,ring:'#FF8F3F',skin:'#D9A374',shirt:'#3D5A99'},
-      {x:140,y:120,s:40,ring:'#22A06B',skin:'#C98E64',shirt:'#5A5F6B'},
-      {x:176,y:350,s:36,ring:'#1868DB',skin:'#F0C29A',shirt:'#7A5C3E'}
-    ];
+    var RINGS=['#1868DB','#22A06B','#BF63F3','#FCA700','#FF8F3F','#22A06B','#1868DB'],PIX=[9,13,0,5,16,1,18];
+    var AVD=[{x:880,y:168,s:46},{x:905,y:308,s:40},{x:872,y:462,s:44},{x:1010,y:488,s:36},{x:612,y:232,s:38},{x:140,y:120,s:40},{x:176,y:350,s:36}];
+    var AVM=[{x:160,y:150,s:26},{x:160,y:262,s:26},{x:290,y:470,s:30},{x:30,y:478,s:28},{x:160,y:374,s:26}];
     var E=[['c1','s1','h'],['c2','s1','h'],['c3','s1','h'],['c4','s1','h'],['c5','s1','h'],['c6','s1','h'],
            ['s1','s2','v'],['s2','s3','v'],['s3','s4','v'],['s4','s5','v'],['s5','m','h'],
            ['o1','k1','h'],['k1','k2','v'],['k2','k3','v'],['k3','k4','v'],['k4','k5','v'],['k5','m','h'],['m','out','v']];
-    var el={},html='';
-    N.forEach(function(n){
-      if(n.k==='hd'){html+='<span class="tn-hd" data-id="'+n.id+'">'+n.t+'</span>';return;}
-      if(n.k==='match'){html+='<span class="tn tn-match" data-id="m"><i><svg><use href="#i-target"/></svg></i><b>Match</b><small>התאמה מדויקת</small></span>';return;}
-      if(n.k==='out'){html+='<span class="tn tn-out" data-id="out"><i class="tn-chk"><svg><use href="#i-check"/></svg></i>'+n.t+'</span>';return;}
-      html+='<span class="tn tn-'+n.k+'" data-id="'+n.id+'"><i class="ic ic-'+n.c+'"><svg><use href="#i-'+n.ic+'"/></svg></i>'+n.t+'</span>';
-    });
-    AV.forEach(function(a,i){
-      var PIX=[9,13,0,5,16,1,18];html+='<span class="tav" style="left:'+(a.x-a.s/2)+'px;top:'+(a.y-a.s/2)+'px;width:'+a.s+'px;height:'+a.s+'px;--ring:'+a.ring+';--d:'+(0.7+i*0.22).toFixed(2)+'s;--bob:'+(3.2+(i%3)*0.7)+'s;--bd:'+(-i*0.6)+'s"><b>'+PIMG(PIX[i],a.s)+'</b></span>';
-    });
-    inner.insertAdjacentHTML('beforeend',html);
-    inner.querySelectorAll('[data-id]').forEach(function(x){el[x.dataset.id]=x;});
-    /* choreography (seconds): channels + organisation appear, lines draw from both sides step by step, both arrive at Match together, then the output */
-    var STEP=0.32,T0=1.1,TM=T0+4*STEP+0.07+0.55,DL={hc:0,hs:0.05,hk:0.05,o1:0.25,m:TM+0.05,out:TM+0.95};
-    for(var q=1;q<=6;q++)DL['c'+q]=0.15+(q-1)*0.07;
-    for(q=1;q<=5;q++){DL['s'+q]=T0+(q-1)*STEP;DL['k'+q]=T0+(q-1)*STEP;}
-    Object.keys(DL).forEach(function(id){el[id]&&el[id].style.setProperty('--d',DL[id].toFixed(2)+'s');});
-    function edgeT(e,i){var f=e[0],t=e[1];
+    var STEP=0.32,T0=1.1,TM=T0+4*STEP+0.07+0.55;
+    function edgeT(e){var f=e[0],t=e[1];
       if(/^c/.test(f))return[0.55+(+f.slice(1)-1)*0.04,0.6];
       if(f==='o1')return[0.55,0.6];
       if(t==='m')return[T0+4*STEP+0.07,0.55];
       if(f==='m')return[TM+0.55,0.4];
       var n=+f.slice(1);return[T0+(n-1)*STEP+0.05,0.27];}
-    function place(){
-      N.forEach(function(n){var e=el[n.id];var w=e.offsetWidth,h=e.offsetHeight;
-        var left=n.r!=null?n.r-w:n.x-w/2;e.style.left=left+'px';e.style.top=(n.y-h/2)+'px';
-        n.L=left;n.R=left+w;n.T=n.y-h/2;n.B=n.y+h/2;n.cx=left+w/2;});
+    var MOB=null,W=1160,H=545,el={},byId={},paths=[],pulses=[];
+    function P(n){return MOB?n.M:n;}
+    function render(){
+      MOB=host.clientWidth<640;W=MOB?320:1160;H=MOB?572:545;
+      host.classList.toggle('mob',MOB);inner.style.width=W+'px';inner.style.height=H+'px';svg.setAttribute('viewBox','0 0 '+W+' '+H);svg.style.width=W+'px';svg.style.height=H+'px';
+      [].slice.call(inner.children).forEach(function(c){if(c!==svg)c.remove();});
+      pulses.forEach(function(q){q.dot.remove();});pulses=[];el={};byId={};
+      var html='';
+      N.forEach(function(n){var p=P(n);if(p.hide)return;var t=(MOB&&p.t)||n.t;byId[n.id]=n;
+        if(n.k==='hd'){html+='<span class="tn-hd" data-id="'+n.id+'">'+t+'</span>';return;}
+        if(n.k==='match'){html+='<span class="tn tn-match" data-id="m"><i><svg><use href="#i-target"/></svg></i><b>Match</b><small>התאמה מדויקת</small></span>';return;}
+        if(n.k==='out'){html+='<span class="tn tn-out" data-id="out"><i class="tn-chk"><svg><use href="#i-check"/></svg></i>'+t+'</span>';return;}
+        html+='<span class="tn tn-'+n.k+'" data-id="'+n.id+'"><i class="ic ic-'+n.c+'"><svg><use href="#i-'+n.ic+'"/></svg></i>'+t+'</span>';});
+      (MOB?AVM:AVD).forEach(function(a,i){html+='<span class="tav" style="left:'+(a.x-a.s/2)+'px;top:'+(a.y-a.s/2)+'px;width:'+a.s+'px;height:'+a.s+'px;--ring:'+RINGS[i]+';--d:'+(0.7+i*0.22).toFixed(2)+'s;--bob:'+(3.2+(i%3)*0.7)+'s;--bd:'+(-i*0.6)+'s"><b>'+PIMG(PIX[i],a.s*2)+'</b></span>';});
+      inner.insertAdjacentHTML('beforeend',html);
+      inner.querySelectorAll('[data-id]').forEach(function(x){el[x.dataset.id]=x;});
+      var DL={hc:0,hs:0.05,hk:0.05,o1:0.25,m:TM+0.05,out:TM+0.95};
+      for(var q=1;q<=6;q++)DL['c'+q]=0.15+(q-1)*0.07;
+      for(q=1;q<=5;q++){DL['s'+q]=T0+(q-1)*STEP;DL['k'+q]=T0+(q-1)*STEP;}
+      Object.keys(DL).forEach(function(id){el[id]&&el[id].style.setProperty('--d',DL[id].toFixed(2)+'s');});
+      build();fit();
     }
-    var byId={};N.forEach(function(n){byId[n.id]=n;});
-    var paths=[];
+    function place(){
+      Object.keys(byId).forEach(function(id){var n=byId[id],p=P(n),e=el[id];var w=e.offsetWidth,h=e.offsetHeight;
+        var left=p.r!=null?p.r-w:p.x-w/2;e.style.left=left+'px';e.style.top=(p.y-h/2)+'px';
+        n.L=left;n.R=left+w;n.T=p.y-h/2;n.B=p.y+h/2;n.cx=left+w/2;n.cy=p.y;});
+    }
+    function pathD(e){var a=byId[e[0]],b=byId[e[1]];
+      if(MOB){
+        if(e[2]==='v'||e[0]==='o1')return 'M'+a.cx+' '+a.B+' L'+b.cx+' '+b.T;
+        if(e[1]==='m'){var x2=a.cx>b.cx?b.R:b.L;return 'M'+a.cx+' '+a.B+' C'+a.cx+' '+(b.cy-6)+' '+a.cx+' '+b.cy+' '+x2+' '+b.cy;}
+        var sy=a.B,ey=b.T,my=(sy+ey)/2;return 'M'+a.cx+' '+sy+' C'+a.cx+' '+(sy+22)+' '+b.cx+' '+(ey-26)+' '+b.cx+' '+ey;}
+      if(e[2]==='v')return 'M'+a.cx+' '+a.B+' L'+b.cx+' '+b.T;
+      var x1,x2b;if(b.cx<a.cx){x1=a.L;x2b=b.R;}else{x1=a.R;x2b=b.L;}var mx=(x1+x2b)/2;return 'M'+x1+' '+a.cy+' C'+mx+' '+a.cy+' '+mx+' '+b.cy+' '+x2b+' '+b.cy;}
     function build(){
-      place();svg.innerHTML='';paths=[];
-      /* faint target rings behind the match node */
-      [70,120,175].forEach(function(r){var c=document.createElementNS(NS,'circle');c.setAttribute('cx',580);c.setAttribute('cy',392);c.setAttribute('r',r);c.setAttribute('class','tg-ring');c.style.setProperty('--d',(TM+(r-70)/350).toFixed(2)+'s');svg.appendChild(c);});
-      E.forEach(function(e,i){var a=byId[e[0]],b=byId[e[1]],d;
-        if(e[2]==='v'){d='M'+a.cx+' '+a.B+' L'+b.cx+' '+b.T;}
-        else{var x1,x2;if(b.cx<a.cx){x1=a.L;x2=b.R;}else{x1=a.R;x2=b.L;}var mx=(x1+x2)/2;d='M'+x1+' '+a.y+' C'+mx+' '+a.y+' '+mx+' '+b.y+' '+x2+' '+b.y;}
-        var p=document.createElementNS(NS,'path');p.setAttribute('d',d);p.setAttribute('class','tg-ln'+(e[1]==='m'||e[1]==='out'?' tg-ln-hot':''));svg.appendChild(p);
-        var L=p.getTotalLength(),tt=edgeT(e,i);p.style.cssText='--len:'+L.toFixed(1)+';--d:'+tt[0].toFixed(2)+'s;--dur:'+tt[1]+'s';
+      place();svg.innerHTML='';paths=[];var m=byId.m;
+      (MOB?[52,84,116]:[70,120,175]).forEach(function(r){var c=document.createElementNS(NS,'circle');c.setAttribute('cx',m.cx);c.setAttribute('cy',m.cy);c.setAttribute('r',r);c.setAttribute('class','tg-ring');c.style.setProperty('--d',(TM+(r-50)/350).toFixed(2)+'s');svg.appendChild(c);});
+      E.forEach(function(e){if(!byId[e[0]]||!byId[e[1]])return;
+        var p=document.createElementNS(NS,'path');p.setAttribute('d',pathD(e));p.setAttribute('class','tg-ln'+(e[1]==='m'||e[1]==='out'?' tg-ln-hot':''));svg.appendChild(p);
+        var L=p.getTotalLength(),tt=edgeT(e);p.style.cssText='--len:'+L.toFixed(1)+';--d:'+tt[0].toFixed(2)+'s;--dur:'+tt[1]+'s';
         paths.push({p:p,from:e[0],to:e[1],len:L});});
     }
-    function fit(){var w=host.clientWidth;var k=Math.min(1,w/1160);inner.style.transform='scale('+k+')';host.style.height=(545*k)+'px';}
-    function init(){if(getComputedStyle(host).display==='none')return;build();fit();}
+    function fit(){var w=host.clientWidth;var k=MOB?Math.min(1.25,w/W):Math.min(1,w/W);inner.style.transform='scale('+k+')';host.style.height=(H*k)+'px';
+      if(MOB)inner.style.right=((w-W*k)/2)+'px';else inner.style.right='0px';}
+    function init(){if(getComputedStyle(host).display==='none')return;render();}
     var vis=false,live=false,started=false;
     function start(){if(started)return;started=true;host.classList.add('in');
       if(RM){live=false;return;}
       setTimeout(function(){live=true;},(TM+1.2)*1000);}
     (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(function(){init();
       if(RM||!('IntersectionObserver' in window)){start();return;}
-      new IntersectionObserver(function(en,o){if(en[0].isIntersecting){start();o.disconnect();}},{threshold:0.3}).observe(host);});
-    addEventListener('resize',function(){fit();});
+      new IntersectionObserver(function(en,o){if(en[0].isIntersecting){start();o.disconnect();}},{threshold:0.25}).observe(host);});
+    var rt;addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(function(){if(MOB===null)return;if((host.clientWidth<640)!==MOB)render();else fit();},120);});
     if(!RM&&'IntersectionObserver' in window)new IntersectionObserver(function(en){vis=en[0].isIntersecting;host.classList.toggle('off',!vis);}).observe(host);
     if(RM)return;
-    /* pulses keep travelling edge to edge toward the match */
     function nextOf(id){for(var i=0;i<paths.length;i++)if(paths[i].from===id)return paths[i];return null;}
-    var pulses=[],last=0,spawnT=0,side=0;
+    var last=0,spawnT=0,side=0;
     window.__graphStart=function(){start();}; /* screenshot tooling only */
     function spawn(){if(!paths.length||pulses.length>9)return;var src;side=1-side;
       if(side){var cs=paths.filter(function(p){return /^c/.test(p.from);});src=cs[Math.random()*cs.length|0];}else src=paths.filter(function(p){return p.from==='o1';})[0];
-      var dot=document.createElementNS(NS,'circle');dot.setAttribute('r',3.2);dot.setAttribute('class','tg-pulse '+(side?'pb':'py'));svg.appendChild(dot);
+      if(!src)return;var dot=document.createElementNS(NS,'circle');dot.setAttribute('r',MOB?2.6:3.2);dot.setAttribute('class','tg-pulse '+(side?'pb':'py'));svg.appendChild(dot);
       pulses.push({e:src,t:0,dot:dot});}
     function tick(now){requestAnimationFrame(tick);if(!live||!vis||document.hidden||!paths.length){last=now;return;}
-      var dt=Math.min(50,now-(last||now));last=now;spawnT+=dt;if(spawnT>700){spawnT=0;spawn();}
-      for(var i=pulses.length-1;i>=0;i--){var q=pulses[i];q.t+=dt*0.16/Math.max(40,q.e.len)*1.0;
+      var dt=Math.min(50,now-(last||now));last=now;spawnT+=dt;if(spawnT>(MOB?800:700)){spawnT=0;spawn();}
+      var sp=MOB?0.075:0.16;
+      for(var i=pulses.length-1;i>=0;i--){var q=pulses[i];q.t+=dt*sp/Math.max(30,q.e.len);
         if(q.t>=1){if(q.e.to==='m'){el.m.classList.remove('hit');void el.m.offsetWidth;el.m.classList.add('hit');}
           var n=nextOf(q.e.to);if(!n){q.dot.remove();pulses.splice(i,1);if(q.e.to==='out'){el.out.classList.remove('hit');void el.out.offsetWidth;el.out.classList.add('hit');}continue;}
           q.e=n;q.t=0;if(n.from==='m')q.dot.setAttribute('class','tg-pulse pw');}
         var pt=q.e.p.getPointAtLength(q.t*q.e.len);q.dot.setAttribute('cx',pt.x);q.dot.setAttribute('cy',pt.y);}
     }
     requestAnimationFrame(tick);
-  })();
-
-  /* ---------- mobile Match list: simple staggered reveal ---------- */
-  (function(){var L=document.querySelector('.tg-list');if(!L||matchMedia('(prefers-reduced-motion: reduce)').matches||!('IntersectionObserver' in window))return;
-    var it=L.querySelectorAll('.tgl-col h4,.tgl-k,.tgl-chips li,.tgl-steps li,.tgl-match');
-    it.forEach(function(x,i){x.classList.add('tgr');x.style.transitionDelay=Math.min(i*45,1400)+'ms';});
-    var cols=L.querySelectorAll('.tgl-col,.tgl-match');
-    var io2=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.querySelectorAll('.tgr').forEach(function(x){x.classList.add('on')});if(e.target.classList.contains('tgr'))e.target.classList.add('on');io2.unobserve(e.target);}});},{threshold:0.15});
-    cols.forEach(function(c){io2.observe(c);});
   })();
 
   /* ---------- CTA mini team (photos, static, on dark) ---------- */
@@ -348,6 +342,20 @@
     document.addEventListener('visibilitychange',sched);
     window.__deckNext=function(){next(-1,false);}; /* screenshot tooling only */
     sched();
+  })();
+
+  /* ---------- floating WhatsApp (mobile): hide while scrolling down / reading, show on scroll up; hidden over hero CTAs, contact + footer ---------- */
+  (function(){
+    var wa=document.querySelector('a.wa');if(!wa)return;var mq=matchMedia('(max-width:860px)');
+    var lastY=scrollY,blockers=[].slice.call(document.querySelectorAll('#hero,#contact,footer')),inB={};
+    function blocked(){for(var k in inB)if(inB[k])return true;return false;}
+    function upd(dir){if(!mq.matches){wa.classList.remove('wa-hide');return;}
+      var hide=blocked()?true:dir>0?true:dir<0?false:wa.classList.contains('wa-hide');
+      wa.classList.toggle('wa-hide',hide);}
+    if(!('IntersectionObserver' in window))return;var io3=new IntersectionObserver(function(en){en.forEach(function(e){inB[blockers.indexOf(e.target)]=e.isIntersecting;});upd(0);},{threshold:0.01});
+    blockers.forEach(function(b){io3.observe(b);});
+    addEventListener('scroll',function(){var y=scrollY,d=y-lastY;if(Math.abs(d)<8)return;lastY=y;upd(d>0?1:-1);},{passive:true});
+    upd(0);
   })();
 
   /* ---------- open at the top (no scroll restoration / stray focus) unless a real #section was requested ---------- */

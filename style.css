@@ -1049,3 +1049,37 @@ body{background:#fff;color:var(--carbon);font:400 16px/1.5 var(--f)}
 .deck{height:452px}
 .hz-vis .hzk-tag-b{top:214px;bottom:auto;left:-22px}
 @media (max-width:860px){.deck{height:446px}.hz-vis .hzk-tag-b{top:200px;left:-6px}.dk .hzk-ck li{font-size:12.5px}}
+
+/* =====================================================================
+   v11 · Match graph on mobile (same graph, vertical layout) + mobile polish
+   ===================================================================== */
+/* the step list is screen-reader text on every size; the graph is the visual */
+.tg-list,.tg .tg-list{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0 0 0 0)!important;white-space:nowrap!important;border:0!important;display:block!important}
+.tg-graph.mob .tn{font-size:11.5px;gap:6px;padding:3px 10px 3px 3px;border-radius:var(--pill)}
+.tg-graph.mob .tn .ic{width:21px;height:21px;border-radius:6px}
+.tg-graph.mob .tn .ic svg{width:12px;height:12px}
+.tg-graph.mob .tn-org{font-size:12px;padding:3px 10px 3px 3px}.tg-graph.mob .tn-org .ic{width:22px;height:22px}
+.tg-graph.mob .tn-hd{font-size:11px}
+.tg-graph.mob .tn-match{width:100px;padding:10px 6px 9px;border-radius:16px;gap:3px}
+.tg-graph.mob .tn-match i{width:30px;height:30px;border-radius:9px}.tg-graph.mob .tn-match i svg{width:18px;height:18px}
+.tg-graph.mob .tn-match b{font-size:16px}.tg-graph.mob .tn-match small{font-size:10.5px}
+.tg-graph.mob .tn-match::after{border-radius:19px}
+.tg-graph.mob .tn-out{font-size:12.5px;padding:6px 12px 6px 7px;gap:7px}
+.tg-graph.mob .tn-out .tn-chk,.tg-graph.mob .tn-out .tn-chk svg{width:18px;height:18px}
+.tg-graph.mob .tav b{box-shadow:0 0 0 2.5px var(--ring),0 0 0 4px var(--navy)}
+.tg-graph.mob .tg-ln{stroke-width:1.1}
+@media (max-width:860px){
+  .tg-graph{display:block!important;margin-top:18px}
+  .mg .tg-panel{padding:30px 14px 18px}
+  .mg .tg-head{padding:0 6px}
+  .tg-foot{padding-inline:6px}
+}
+/* v11 mobile polish: floating WhatsApp never parks on top of text */
+.wa{transition:transform .35s cubic-bezier(.2,.8,.2,1),opacity .3s}
+.wa.wa-hide{transform:translateY(140%);opacity:0;pointer-events:none}
+@media (max-width:860px){
+  .wa{width:46px;height:46px;left:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px))}
+  .wa svg{width:24px;height:24px}
+  .ftr,footer{padding-bottom:84px}
+}
+@media (prefers-reduced-motion:reduce){.wa{transition:opacity .2s}}
