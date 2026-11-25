@@ -282,11 +282,12 @@
     function nextOf(id){for(var i=0;i<paths.length;i++)if(paths[i].from===id)return paths[i];return null;}
     var last=0,spawnT=0,side=0;
     window.__graphStart=function(){start();}; /* screenshot tooling only */
+    var gp=document.querySelector('.tg-pause');if(gp)gp.addEventListener('click',function(){var on=!host.classList.contains('paused');host.classList.toggle('paused',on);gp.setAttribute('aria-pressed',on?'true':'false');gp.setAttribute('aria-label',on?'הפעלת האנימציה':'עצירת האנימציה');});
     function spawn(){if(!paths.length||pulses.length>9)return;var src;side=1-side;
       if(side){var cs=paths.filter(function(p){return /^c/.test(p.from);});src=cs[Math.random()*cs.length|0];}else src=paths.filter(function(p){return p.from==='o1';})[0];
       if(!src)return;var dot=document.createElementNS(NS,'circle');dot.setAttribute('r',MOB?2.6:3.2);dot.setAttribute('class','tg-pulse '+(side?'pb':'py'));svg.appendChild(dot);
       pulses.push({e:src,t:0,dot:dot});}
-    function tick(now){requestAnimationFrame(tick);if(!live||!vis||document.hidden||!paths.length){last=now;return;}
+    function tick(now){requestAnimationFrame(tick);if(!live||!vis||document.hidden||!paths.length||host.classList.contains('paused')){last=now;return;}
       var dt=Math.min(50,now-(last||now));last=now;spawnT+=dt;if(spawnT>(MOB?800:700)){spawnT=0;spawn();}
       var sp=MOB?0.075:0.16;
       for(var i=pulses.length-1;i>=0;i--){var q=pulses[i];q.t+=dt*sp/Math.max(30,q.e.len);
@@ -358,15 +359,45 @@
     upd(0);
   })();
 
-  /* ---------- open at the top (no scroll restoration / stray focus) unless a real #section was requested ---------- */
+  /* ---------- ALWAYS open at the top + in-page links scroll smoothly WITHOUT writing #hash into the URL ----------
+     Root cause of "opens at the bottom": in-page links (e.g. "דברו איתנו" -> #contact) wrote the hash into the address bar,
+     so the URL people copied and shared was .../bleaz-site/#contact, which opens at the contact section (the bottom).
+     Fix: never write hashes, strip any incoming hash on load, and keep the page at the top. */
   (function(){
     try{if('scrollRestoration' in history)history.scrollRestoration='manual';}catch(e){}
+    if(location.hash){try{history.replaceState(null,'',location.pathname+location.search);}catch(e){}}
     var touched=false;['wheel','touchstart','keydown','mousedown'].forEach(function(t){addEventListener(t,function(){touched=true;},{passive:true,once:true});});
-    function want(){var h=location.hash.slice(1);return h&&document.getElementById(decodeURIComponent(h));}
-    function top(){if(touched)return;var t=want();if(t)return;if(scrollY!==0)scrollTo(0,0);}
-    top();addEventListener('DOMContentLoaded',top);addEventListener('load',function(){top();setTimeout(top,300);});
-    addEventListener('pageshow',function(e){if(e.persisted)top();});
+    function top(){if(!touched&&(scrollX!==0||scrollY!==0))scrollTo(0,0);}
+    top();addEventListener('DOMContentLoaded',top);addEventListener('load',function(){top();setTimeout(top,250);setTimeout(top,1200);});
+    addEventListener('pageshow',function(){top();});
     document.fonts&&document.fonts.ready.then(top);
+    var RMs=matchMedia('(prefers-reduced-motion: reduce)');
+    window.__go=function(id){var hdr=document.querySelector('.hdr-cap');var off=(hdr?hdr.getBoundingClientRect().bottom:60)+8;
+      if(!id||id==='top'||id==='hero'){scrollTo({top:0,behavior:RMs.matches?'auto':'smooth'});return;}
+      var t=document.getElementById(id);if(!t)return;var y=t.getBoundingClientRect().top+scrollY-off;
+      scrollTo({top:Math.max(0,y),behavior:RMs.matches?'auto':'smooth'});
+      if(!t.hasAttribute('tabindex'))t.setAttribute('tabindex','-1');try{t.focus({preventScroll:true});}catch(e){}};
+    document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a)return;
+      var id=a.getAttribute('href').slice(1);e.preventDefault();if(!id)return;window.__go(id);document.dispatchEvent(new CustomEvent('navclose'));});
+  })();
+
+  /* ---------- mobile menu (burger): open/close, Esc, focus trap, links close it ---------- */
+  (function(){
+    var hdr=document.querySelector('.hdr'),btn=document.querySelector('.burger'),nav=document.getElementById('site-nav');if(!btn||!nav)return;
+    var mq=matchMedia('(max-width:1100px)');
+    function items(){return [btn].concat([].slice.call(nav.querySelectorAll('a')));}
+    function setOpen(o){hdr.classList.toggle('open',o);btn.setAttribute('aria-expanded',o?'true':'false');btn.setAttribute('aria-label',o?'סגירת התפריט':'פתיחת התפריט');
+      document.documentElement.classList.toggle('menu-open',o);
+      if(o){var f=nav.querySelector('a');f&&f.focus({preventScroll:true});}}
+    btn.addEventListener('click',function(){setOpen(!hdr.classList.contains('open'));});
+    document.addEventListener('navclose',function(){if(hdr.classList.contains('open'))setOpen(false);});
+    document.addEventListener('keydown',function(e){if(!hdr.classList.contains('open'))return;
+      if(e.key==='Escape'){setOpen(false);btn.focus({preventScroll:true});return;}
+      if(e.key==='Tab'){var it=items(),i=it.indexOf(document.activeElement);
+        if(e.shiftKey&&(i<=0)){e.preventDefault();it[it.length-1].focus({preventScroll:true});}
+        else if(!e.shiftKey&&i===it.length-1){e.preventDefault();it[0].focus({preventScroll:true});}}});
+    document.addEventListener('click',function(e){if(hdr.classList.contains('open')&&!hdr.contains(e.target))setOpen(false);});
+    mq.addEventListener&&mq.addEventListener('change',function(){if(!mq.matches)setOpen(false);});
   })();
 
   /* ---------- header ---------- */

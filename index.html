@@ -56,19 +56,21 @@
 <!-- ============ HEADER ============ -->
 <header class="hdr" id="top">
   <div class="hdr-cap">
-    <a class="wm" href="#top" aria-label="BLEAZ">BLEAZ<i></i></a>
-    <nav class="nav" aria-label="ניווט ראשי">
+    <a class="wm" href="#top" aria-label="BLEAZ, חזרה לראש העמוד">BLEAZ<i></i></a>
+    <nav class="nav" id="site-nav" aria-label="ניווט ראשי">
+      <a class="btn btn-grad nav-cta" href="#contact">דברו איתנו</a>
       <a href="#why">למה אנחנו</a>
       <a href="#method">התהליך</a>
       <a href="#compare">ההבדל</a>
       <a href="#recruiters">למגייסים</a>
       <a href="#sectors">תחומים</a>
+      <a class="nav-m-only" href="#jobs">משרות</a>
     </nav>
     <div class="hdr-act">
       <a class="lnk-jobs" href="#jobs">משרות</a>
-      <a class="btn btn-grad" href="#contact">דברו איתנו</a>
+      <a class="btn btn-grad hdr-cta-m" href="#contact">דברו איתנו</a>
     </div>
-    <button class="burger" aria-label="תפריט"><svg><use href="#i-menu"/></svg></button>
+    <button class="burger" type="button" aria-label="פתיחת התפריט" aria-expanded="false" aria-controls="site-nav"><svg class="b-open"><use href="#i-menu"/></svg><svg class="b-close"><use href="#i-x"/></svg></button>
   </div>
 </header>
 
@@ -79,7 +81,6 @@
     <i class="hzc hzc-a" aria-hidden="true"></i><i class="hzc hzc-b" aria-hidden="true"></i><i class="hzc hzc-c" aria-hidden="true"></i><i class="hzc hzc-d" aria-hidden="true"></i>
     <div class="hz-panel">
       <div class="hz-copy">
-        <span class="tag tag-dark">גיוס והשמה · מכירות ושירות לקוחות</span>
         <h1 class="h1">מגייסים עבורכם<br>את <span class="grad-text">האנשים המדויקים.</span></h1>
         <p class="lead"><b>נכנסים לארגון שלכם ומבינים את ה-DNA שלו.</b> אחר כך שואלים את המועמדים במקומכם את מה שחשוב באמת: למה עזבו, מה חסר להם, מה הם רוצים. לתפקידי מכירות ושירות לקוחות.</p>
         <div class="ctas">
@@ -137,9 +138,7 @@
 
 <!-- ============ SPECIALTY STRIP ============ -->
 <section class="strip" aria-label="התמחות">
-  <div class="strip-in">
-    <span>מכירות</span><span>שירות לקוחות</span><span>שימור</span><span>מוקדים</span><span>ביטוח ופנסיה</span><span>בתי השקעות</span><span>פיננסים</span>
-  </div>
+  <div class="strip-in"><div class="mq"><div class="mq-g"><span>מכירות</span><span>שירות לקוחות</span><span>שימור</span><span>מוקדים</span><span>ביטוח ופנסיה</span><span>בתי השקעות</span><span>פיננסים</span></div><div class="mq-g" aria-hidden="true"><span>מכירות</span><span>שירות לקוחות</span><span>שימור</span><span>מוקדים</span><span>ביטוח ופנסיה</span><span>בתי השקעות</span><span>פיננסים</span></div></div></div>
 </section>
 
 <!-- ============ MATCH GRAPH (v8: moved out of the hero, animated on scroll) ============ -->
@@ -149,7 +148,7 @@
     <div class="tg-panel">
       <div class="tg-head">
         <div class="tg-title">
-          <span class="tag tag-dark">איך זה עובד</span>
+          <span class="tg-top"><span class="tag tag-dark">איך זה עובד</span><button type="button" class="dk-btn tg-pause" aria-pressed="false" aria-label="עצירת האנימציה"><svg class="ic-pause" viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14" rx="1.2"/><rect x="14" y="5" width="4" height="14" rx="1.2"/></svg><svg class="ic-play" viewBox="0 0 24 24"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.2-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"/></svg></button></span>
           <h2 class="tg-h">שני צדדים.<br><span class="grad-text">התאמה אחת מדויקת.</span></h2>
         </div>
         <div class="tg-side">
@@ -239,41 +238,19 @@
   </ol>
 </section>
 
-<!-- ============ IN PRACTICE: FUNNEL ============ -->
-<section class="funnel" id="funnel">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="kicker">מה זה אומר בפועל</span>
-      <h2 class="h2">מועמדים יש תמיד.<br><span class="grad-text">הדיוק הוא העבודה.</span></h2>
-      <p class="sec-sub">המחשה של שיטת העבודה, לא נתוני ביצוע.</p>
-    </div>
-    <div class="fn">
-      <div class="fn-col" data-n="24" data-keep="14"><h4>מועמדים</h4><p>יזום, אורגני ומהמאגרים שלנו</p><div class="dots"></div></div>
-      <div class="fn-col" data-n="14" data-keep="8"><h4>מול ה-DNA</h4><p>מה המשרה דורשת בפועל</p><div class="dots"></div></div>
-      <div class="fn-col fn-hi" data-n="8" data-keep="4"><h4>שיחת עומק</h4><p>למה עזבו, מה חסר, מה רוצים</p><div class="dots"></div></div>
-      <div class="fn-col" data-n="4" data-keep="4"><h4>הגשה אליכם</h4><p>רק מי שמדויק, עם סיכום שיחה</p><div class="dots"></div></div>
-      <div class="fn-col fn-team" data-n="4" data-keep="4"><h4>אצלכם</h4><p>אחרי שהמשרה נמכרה לו נכון</p><div class="dots"></div></div>
-    </div>
-  </div>
-</section>
+
 
 <!-- ============ COMPARISON ============ -->
 <section class="compare wrap" id="compare">
   <div class="sec-head">
     <span class="kicker">ההבדל</span>
     <h2 class="h2">אותה משרה.<br><span class="grad-text">שתי שיחות שונות לגמרי.</span></h2>
-    <p class="sec-sub">רוב השיחות עם מועמדים בודקות את הבסיס ושולחות הלאה. אצלנו הבסיס הוא רק ההתחלה.</p>
   </div>
-  <div class="cmp rv" role="table" aria-label="השוואה">
-    <div class="cmp-r cmp-h" role="row"><span role="columnheader"></span><span role="columnheader">בדיקה טכנית ושליחה</span><span role="columnheader" class="us">אצלנו</span></div>
-    <div class="cmp-r" role="row"><b role="rowheader">לפני שמחפשים</b><span>תיאור משרה ודרישות בסיס</span><span class="us">ה-DNA של מי שיצליח אצלכם, במוקד ובצוות הספציפיים שלכם</span></div>
-    <div class="cmp-r" role="row"><b role="rowheader">מאיפה מגיעים</b><span>מי שענה למודעה</span><span class="us">גיוס יזום, פנייה אורגנית ומאגרים שלנו</span></div>
-    <div class="cmp-r" role="row"><b role="rowheader">מה שואלים</b><span>זמינות, שעות וידע בסיסי</span><span class="us">למה עזב, מה חסר לו, ומה הוא באמת רוצה</span></div>
-    <div class="cmp-r" role="row"><b role="rowheader">מי מגיע אליכם</b><span>כל מי שעבר את הבסיס</span><span class="us">רק מי שמדויק למשרה ולצוות</span></div>
-    <div class="cmp-r" role="row"><b role="rowheader">מה מגיע איתו</b><span>קורות חיים</span><span class="us">סיכום שעונה על מה שחשוב לכם, לפני הראיון</span></div>
-    <div class="cmp-r" role="row"><b role="rowheader">המשרה בעיני המועמד</b><span>שומע עליה לראשונה בראיון</span><span class="us">הוצגה לו ברמה הגבוהה ביותר, והוא מגיע כי הוא רוצה אותה</span></div>
-    <div class="cmp-r" role="row"><b role="rowheader">העבודה מולכם</b><span>רודפים אחרי עדכונים</span><span class="us">תהליך מסודר ועדכונים בזמן</span></div>
-  </div>
+  <ol class="cx">
+    <li class="cx-i rv"><span class="cx-n">1</span><div><h3>מבינים את ה-DNA של הארגון</h3><p class="cx-them">במקום: תיאור משרה ודרישות בסיס.</p><p class="cx-us">נכנסים אליכם, עד רצפת העבודה, ולומדים מי מצליח אצלכם, באיזה צוות ובאיזה קצב.</p></div></li>
+    <li class="cx-i cx-hi rv"><span class="cx-n">2</span><div><h3>שואלים במקומכם את השאלות הקשות</h3><p class="cx-them">במקום: זמינות, שעות וידע בסיסי.</p><p class="cx-us">למה עזבו, מה חסר להם ומה הם באמת רוצים. כך יודעים מראש מי יישאר.</p></div></li>
+    <li class="cx-i rv"><span class="cx-n">3</span><div><h3>רק המועמדים המדויקים</h3><p class="cx-them">במקום: ערימה של קורות חיים.</p><p class="cx-us">רשימה קצרה, עם סיכום שיחה לפני הראיון. אתם מראיינים פחות ומחליטים מהר יותר.</p></div></li>
+  </ol>
 </section>
 
 <!-- ============ FOR THE IN-HOUSE RECRUITER ============ -->
@@ -371,17 +348,7 @@
 </section>
 
 <!-- ============ FROM THE FIELD ============ -->
-<section class="field wrap" id="field">
-  <div class="sec-head row">
-    <div><span class="kicker">מהשטח</span><h2 class="h2">על מוקדים, אנשים<br><span class="grad-text">וגיוס.</span></h2></div>
-    <a class="btn btn-ghost" href="#">לכל המאמרים</a>
-  </div>
-  <div class="fd-grid">
-    <a class="fd rv" href="#"><span class="fd-tag">גיוס</span><h3>למה פנייה שלא חוזרים אליה בזמן הולכת למקום אחר</h3><span class="fd-ph">[מאמר בהכנה]</span><span class="fd-go">לקריאה <svg><use href="#i-arrow"/></svg></span></a>
-    <a class="fd rv" href="#"><span class="fd-tag">אפיון</span><h3>מה זה DNA של משרה, ולמה הוא חשוב יותר מתיאור המשרה</h3><span class="fd-ph">[מאמר בהכנה]</span><span class="fd-go">לקריאה <svg><use href="#i-arrow"/></svg></span></a>
-    <a class="fd rv" href="#"><span class="fd-tag">מוקדים</span><h3>מה צריך לבדוק לפני שפותחים משמרת חדשה</h3><span class="fd-ph">[מאמר בהכנה]</span><span class="fd-go">לקריאה <svg><use href="#i-arrow"/></svg></span></a>
-  </div>
-</section>
+
 
 <!-- ============ FINAL CTA ============ -->
 <section class="cta" id="contact">
@@ -400,6 +367,16 @@
       <label class="cb"><input type="checkbox"> אישור למסירת הפרטים לצורך חזרה אליכם, בכפוף <a href="#">למדיניות הפרטיות</a></label>
       <button class="btn btn-grad btn-lg btn-block">שלחו פרטים ונחזור אליכם</button>
     </form>
+  </div>
+</section>
+<section class="field wrap" id="field">
+  <div class="fx">
+    <div class="fx-h"><span class="kicker">מהשטח</span><h2 class="fx-t">על מוקדים, אנשים וגיוס</h2><a class="btn btn-ghost btn-sm" href="#">לכל המאמרים</a></div>
+    <ul class="fx-list">
+      <li><a href="#"><span class="fd-tag">גיוס</span><b>למה פנייה שלא חוזרים אליה בזמן הולכת למקום אחר</b><span class="fd-ph">[מאמר בהכנה]</span><svg><use href="#i-arrow"/></svg></a></li>
+      <li><a href="#"><span class="fd-tag">אפיון</span><b>מה זה DNA של משרה, ולמה הוא חשוב יותר מתיאור המשרה</b><span class="fd-ph">[מאמר בהכנה]</span><svg><use href="#i-arrow"/></svg></a></li>
+      <li><a href="#"><span class="fd-tag">מוקדים</span><b>מה צריך לבדוק לפני שפותחים משמרת חדשה</b><span class="fd-ph">[מאמר בהכנה]</span><svg><use href="#i-arrow"/></svg></a></li>
+    </ul>
   </div>
 </section>
 </main>
