@@ -312,6 +312,44 @@
     paint();var rt;addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(paint,150);});
   })();
 
+  /* ---------- HERO deck: dating-app style profile cards (auto-advance, swipe, pause) ---------- */
+  (function(){
+    var deck=document.querySelector('.deck');if(!deck)return;
+    var vis=deck.closest('.hz-vis'),cards=[].slice.call(deck.querySelectorAll('.dk')),order=cards.map(function(c,i){return i;});
+    var pb=vis.querySelector('.dk-pause'),nb=vis.querySelector('.dk-next'),live=vis.querySelector('.dk-live');
+    var RMq=matchMedia('(prefers-reduced-motion: reduce)'),userPaused=false,hover=false,focus=false,onScreen=true,busy=false,t=null,DELAY=3500;
+    function apply(){order.forEach(function(ci,k){var c=cards[ci];c.dataset.pos=Math.min(k,3);var top=k===0;c.setAttribute('aria-hidden',top?'false':'true');if('inert' in c)c.inert=!top;});}
+    function running(){return !userPaused&&!hover&&!focus&&onScreen&&!document.hidden&&!RMq.matches;}
+    function sched(){clearTimeout(t);if(running())t=setTimeout(function(){next(-1,false);},DELAY);}
+    function announce(){var c=cards[order[0]];live.textContent='כרטיס '+(order[0]+1)+' מתוך '+cards.length+': '+c.querySelector('figcaption b').textContent+', '+c.querySelector('figcaption small').textContent;}
+    function next(dir,manual){if(busy)return;busy=true;var c=cards[order[0]];
+      c.style.setProperty('--ox',(dir*(deck.offsetWidth*1.5))+'px');c.style.setProperty('--or',(dir*18)+'deg');
+      c.classList.remove('drag');c.classList.add('out');
+      setTimeout(function(){c.classList.add('nt');c.classList.remove('out');c.style.transform='';c.style.removeProperty('--st');
+        order.push(order.shift());apply();void c.offsetWidth;c.classList.remove('nt');busy=false;if(manual)announce();sched();},RMq.matches?360:620);}
+    apply();
+    /* drag / swipe to dismiss */
+    var sx=0,sy=0,dx=0,drag=null;
+    deck.addEventListener('pointerdown',function(e){var c=cards[order[0]];if(busy||!c.contains(e.target)||e.button>0)return;drag=c;sx=e.clientX;sy=e.clientY;dx=0;c.classList.add('drag');c.setPointerCapture(e.pointerId);clearTimeout(t);});
+    deck.addEventListener('pointermove',function(e){if(!drag)return;dx=e.clientX-sx;var dy=(e.clientY-sy)*0.2;drag.style.transform='translate('+dx+'px,'+dy+'px) rotate('+(dx/18)+'deg)';drag.style.setProperty('--st',Math.min(1,Math.abs(dx)/110));});
+    function end(){if(!drag)return;var c=drag;drag=null;
+      if(Math.abs(dx)>90){next(dx>0?1:-1,true);}else{c.classList.remove('drag');c.style.transform='';c.style.removeProperty('--st');sched();}}
+    deck.addEventListener('pointerup',end);deck.addEventListener('pointercancel',end);
+    /* keyboard + buttons */
+    deck.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'){e.preventDefault();next(-1,true);}else if(e.key==='ArrowRight'){e.preventDefault();next(1,true);}});
+    nb.addEventListener('click',function(){next(-1,true);});
+    function setPaused(v){userPaused=v;pb.setAttribute('aria-pressed',v?'true':'false');pb.setAttribute('aria-label',v?'הפעלת החלפת הכרטיסים':'עצירת החלפת הכרטיסים');sched();}
+    pb.addEventListener('click',function(){setPaused(!userPaused);});
+    if(RMq.matches){pb.hidden=true;}
+    /* pause on hover / focus / off-screen / hidden tab */
+    vis.addEventListener('mouseenter',function(){hover=true;sched();});vis.addEventListener('mouseleave',function(){hover=false;sched();});
+    vis.addEventListener('focusin',function(){focus=true;sched();});vis.addEventListener('focusout',function(e){if(!vis.contains(e.relatedTarget)){focus=false;sched();}});
+    if('IntersectionObserver' in window)new IntersectionObserver(function(en){onScreen=en[0].isIntersecting;sched();}).observe(deck);
+    document.addEventListener('visibilitychange',sched);
+    window.__deckNext=function(){next(-1,false);}; /* screenshot tooling only */
+    sched();
+  })();
+
   /* ---------- open at the top (no scroll restoration / stray focus) unless a real #section was requested ---------- */
   (function(){
     try{if('scrollRestoration' in history)history.scrollRestoration='manual';}catch(e){}
