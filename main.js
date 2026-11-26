@@ -192,24 +192,24 @@
       {id:'hs',k:'hd',t:'מצד המועמדים',x:745,y:16,M:{hide:1}},
       {id:'hk',k:'hd',t:'מצד הארגון',x:415,y:16,M:{hide:1}},
       {id:'c1',k:'ch',t:'שיתופי פעולה עם מכללות ואוניברסיטאות',ic:'cap',c:'p',r:1160,y:60,M:{x:241,y:38,t:'אקדמיה ומכללות'}},
-      {id:'c2',k:'ch',t:'רשתות אורגניות',ic:'net',c:'g',r:1160,y:130,M:{x:79,y:38}},
+      {id:'c2',k:'ch',t:'קבוצות פייסבוק',ic:'net',c:'g',r:1160,y:130,M:{x:79,y:38}},
       {id:'c3',k:'ch',t:'לוחות דרושים',ic:'board',c:'o',r:1160,y:200,M:{x:241,y:70}},
-      {id:'c4',k:'ch',t:'פרסום ממומן במטא',ic:'mega',c:'b',r:1160,y:270,M:{x:79,y:70}},
+      {id:'c4',k:'ch',t:'פנייה יזומה בלינקדאין',ic:'net',c:'b',r:1160,y:270,M:{x:79,y:70,t:'לינקדאין'}},
       {id:'c5',k:'ch',t:'מאגרי המועמדים שלנו',ic:'db',c:'y',r:1160,y:340,M:{x:241,y:102,t:'המאגר שלנו'}},
-      {id:'c6',k:'ch',t:'גיוס יזום מבוסס טכנולוגיה',ic:'bolt',c:'p',r:1160,y:410,M:{x:79,y:102,t:'גיוס יזום'}},
-      {id:'s1',k:'st',t:'קבלת ליד',ic:'inbox',c:'b',x:745,y:72,M:{x:241,y:178}},
-      {id:'s2',k:'st',t:'סינון ראשוני',ic:'filter',c:'g',x:745,y:152,M:{x:241,y:234}},
-      {id:'s3',k:'st',t:'שיחה טלפונית',ic:'phone',c:'o',x:745,y:232,M:{x:241,y:290}},
-      {id:'s4',k:'st',t:'שיחת זום לעומק',ic:'video',c:'p',x:745,y:312,M:{x:241,y:346}},
+      {id:'c6',k:'ch',t:'פרסום ממומן במטא',ic:'mega',c:'p',r:1160,y:410,M:{x:79,y:102,t:'ממומן במטא'}},
+      {id:'s1',k:'st',t:'איתור ופנייה ב-AI',ic:'bolt',c:'b',x:745,y:72,M:{x:241,y:178}},
+      {id:'s2',k:'st',t:'סינון וניתוח ב-AI',ic:'filter',c:'g',x:745,y:152,M:{x:241,y:234,t:'סינון וניתוח'}},
+      {id:'s3',k:'st',t:'שיחת סינון מעמיקה',ic:'phone',c:'o',x:745,y:232,M:{x:241,y:290,t:'שיחת סינון'}},
+      {id:'s4',k:'st',t:'ניתוח השיחה',ic:'video',c:'p',x:745,y:312,M:{x:241,y:346}},
       {id:'s5',k:'st',t:'התאמה למשרה',ic:'target',c:'b',x:745,y:392,M:{x:241,y:402}},
       {id:'o1',k:'org',t:'הארגון שלכם',ic:'building',c:'y',x:120,y:232,M:{x:79,y:178}},
-      {id:'k1',k:'st',t:'לומדים את המשרה',ic:'brief',c:'y',x:415,y:72,M:{x:79,y:223}},
-      {id:'k2',k:'st',t:'פגישה איתכם',ic:'chat',c:'g',x:415,y:152,M:{x:79,y:268}},
-      {id:'k3',k:'st',t:'נכנסים לרצפת העבודה',ic:'headset',c:'o',x:415,y:232,M:{x:79,y:313,t:'רצפת העבודה'}},
-      {id:'k4',k:'st',t:'מכירים את האנשים וה-DNA',ic:'dna',c:'p',x:415,y:312,M:{x:79,y:358,t:'האנשים וה-DNA'}},
-      {id:'k5',k:'st',t:'מבינים את מי מחפשים',ic:'eye',c:'b',x:415,y:392,M:{x:79,y:402,t:'מה מחפשים'}},
+      {id:'k1',k:'st',t:'אפיון המשרה',ic:'brief',c:'y',x:415,y:72,M:{x:79,y:223}},
+      {id:'k2',k:'st',t:'פגישת היכרות',ic:'chat',c:'g',x:415,y:152,M:{x:79,y:268}},
+      {id:'k3',k:'st',t:'היכרות עם רצפת העבודה',ic:'headset',c:'o',x:415,y:232,M:{x:79,y:313,t:'רצפת העבודה'}},
+      {id:'k4',k:'st',t:'הצוות והתרבות הארגונית',ic:'users',c:'p',x:415,y:312,M:{x:79,y:358,t:'הצוות והתרבות'}},
+      {id:'k5',k:'st',t:'הגדרת הפרופיל המדויק',ic:'eye',c:'b',x:415,y:392,M:{x:79,y:402,t:'הפרופיל המדויק'}},
       {id:'m',k:'match',t:'Match',x:580,y:392,M:{x:160,y:478}},
-      {id:'out',k:'out',t:'רק המועמד המדויק נשלח אליכם',x:580,y:508,M:{x:160,y:552}}
+      {id:'out',k:'out',t:'רק המועמד המדויק מוגש לכם',x:580,y:508,M:{x:160,y:552}}
     ];
     var RINGS=['#1868DB','#22A06B','#BF63F3','#FCA700','#FF8F3F','#22A06B','#1868DB'],PIX=[9,13,0,5,16,1,18];
     var AVD=[{x:880,y:168,s:46},{x:905,y:308,s:40},{x:872,y:462,s:44},{x:1010,y:488,s:36},{x:612,y:232,s:38},{x:140,y:120,s:40},{x:176,y:350,s:36}];
@@ -307,42 +307,42 @@
     paint();var rt;addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(paint,150);});
   })();
 
-  /* ---------- HERO deck: dating-app style profile cards (auto-advance, swipe, pause) ---------- */
+  /* ---------- HERO process story: one candidate card through 4 stages, then the next candidate ---------- */
   (function(){
-    var deck=document.querySelector('.deck');if(!deck)return;
-    var vis=deck.closest('.hz-vis'),cards=[].slice.call(deck.querySelectorAll('.dk')),order=cards.map(function(c,i){return i;});
-    var pb=vis.querySelector('.dk-pause'),nb=vis.querySelector('.dk-next'),live=vis.querySelector('.dk-live');
-    var RMq=matchMedia('(prefers-reduced-motion: reduce)'),userPaused=false,hover=false,focus=false,onScreen=true,busy=false,t=null,DELAY=3500;
-    function apply(){order.forEach(function(ci,k){var c=cards[ci];c.dataset.pos=Math.min(k,3);var top=k===0;c.setAttribute('aria-hidden',top?'false':'true');if('inert' in c)c.inert=!top;});}
-    function running(){return !userPaused&&!hover&&!focus&&onScreen&&!document.hidden&&!RMq.matches;}
-    function sched(){clearTimeout(t);if(running())t=setTimeout(function(){next(-1,false);},DELAY);}
-    function announce(){var c=cards[order[0]];live.textContent='כרטיס '+(order[0]+1)+' מתוך '+cards.length+': '+c.querySelector('figcaption b').textContent+', '+c.querySelector('figcaption small').textContent;}
-    function next(dir,manual){if(busy)return;busy=true;var c=cards[order[0]];
-      c.style.setProperty('--ox',(dir*(deck.offsetWidth*1.5))+'px');c.style.setProperty('--or',(dir*18)+'deg');
-      c.classList.remove('drag');c.classList.add('out');
-      setTimeout(function(){c.classList.add('nt');c.classList.remove('out');c.style.transform='';c.style.removeProperty('--st');
-        order.push(order.shift());apply();void c.offsetWidth;c.classList.remove('nt');busy=false;if(manual)announce();sched();},RMq.matches?360:620);}
-    apply();
-    /* drag / swipe to dismiss */
-    var sx=0,sy=0,dx=0,drag=null;
-    deck.addEventListener('pointerdown',function(e){var c=cards[order[0]];if(busy||!c.contains(e.target)||e.button>0)return;drag=c;sx=e.clientX;sy=e.clientY;dx=0;c.classList.add('drag');c.setPointerCapture(e.pointerId);clearTimeout(t);});
-    deck.addEventListener('pointermove',function(e){if(!drag)return;dx=e.clientX-sx;var dy=(e.clientY-sy)*0.2;drag.style.transform='translate('+dx+'px,'+dy+'px) rotate('+(dx/18)+'deg)';drag.style.setProperty('--st',Math.min(1,Math.abs(dx)/110));});
-    function end(){if(!drag)return;var c=drag;drag=null;
-      if(Math.abs(dx)>90){next(dx>0?1:-1,true);}else{c.classList.remove('drag');c.style.transform='';c.style.removeProperty('--st');sched();}}
-    deck.addEventListener('pointerup',end);deck.addEventListener('pointercancel',end);
-    /* keyboard + buttons */
-    deck.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'){e.preventDefault();next(-1,true);}else if(e.key==='ArrowRight'){e.preventDefault();next(1,true);}});
-    nb.addEventListener('click',function(){next(-1,true);});
-    function setPaused(v){userPaused=v;pb.setAttribute('aria-pressed',v?'true':'false');pb.setAttribute('aria-label',v?'הפעלת החלפת הכרטיסים':'עצירת החלפת הכרטיסים');sched();}
-    pb.addEventListener('click',function(){setPaused(!userPaused);});
-    if(RMq.matches){pb.hidden=true;}
-    /* pause on hover / focus / off-screen / hidden tab */
-    vis.addEventListener('mouseenter',function(){hover=true;sched();});vis.addEventListener('mouseleave',function(){hover=false;sched();});
-    vis.addEventListener('focusin',function(){focus=true;sched();});vis.addEventListener('focusout',function(e){if(!vis.contains(e.relatedTarget)){focus=false;sched();}});
-    if('IntersectionObserver' in window)new IntersectionObserver(function(en){onScreen=en[0].isIntersecting;sched();}).observe(deck);
-    document.addEventListener('visibilitychange',sched);
-    window.__deckNext=function(){next(-1,false);}; /* screenshot tooling only */
-    sched();
+    var pv=document.querySelector('.pv');if(!pv)return;
+    var steps=[].slice.call(pv.querySelectorAll('.pv-steps li')),ticks=[].slice.call(pv.querySelectorAll('.pv-s3 li'));
+    var img=pv.querySelector('.pv-img'),nm=pv.querySelector('.pv-name'),rl=pv.querySelector('.pv-role'),sum=pv.querySelector('.pv-sum'),pb=pv.querySelector('.pv-pause');
+    var C=[
+      {img:'img/deck-1.webp',n:'נועה',r:'מכירות טלפוניות · ביטוח',s:'ניסיון במכירה טלפונית, שיחה מכירתית בטוחה, זמינות למשמרות ומוטיבציה גבוהה להתפתחות.'},
+      {img:'img/deck-2.webp',n:'איתי',r:'שירות לקוחות · בנקאות',s:'ניסיון בשירות טלפוני, סבלנות ושפה מקצועית, התאמה מלאה לשעות ולמיקום.'},
+      {img:'img/deck-3.webp',n:'הדס',r:'שימור לקוחות · פנסיה',s:'ניסיון בשימור, הקשבה וניהול התנגדויות, וציפיות שכר תואמות.'},
+      {img:'img/deck-4.webp',n:'עומר',r:'תיאום פגישות · פיננסים',s:'רקע בתיאום פגישות, דיוק וסדר, זמינות מלאה ויציבות לאורך זמן.'}
+    ];
+    C.forEach(function(c){var i=new Image();i.src=c.img;});
+    var RMq=matchMedia('(prefers-reduced-motion: reduce)'),ci=0;
+    function setStage(n){pv.dataset.stage=n;steps.forEach(function(li){var s=+li.dataset.s;li.classList.toggle('on',s===n);li.classList.toggle('done',s<n);});}
+    function fill(c){img.src=c.img;nm.textContent=c.n;rl.textContent=c.r;sum.textContent=c.s;}
+    if(RMq.matches){fill(C[0]);setStage(4);ticks.forEach(function(t){t.classList.add('ok');});return;}
+    /* timeline (ms) for one candidate */
+    var EV=[[0,function(){fill(C[ci]);ticks.forEach(function(t){t.classList.remove('ok');});pv.classList.remove('out','conv');pv.classList.add('pre','pool','run');setStage(1);}],
+      [1050,function(){pv.classList.add('conv');pv.classList.remove('pre');}],
+      [2000,function(){pv.classList.remove('pool');}],
+      [3600,function(){setStage(2);}],
+      [6300,function(){setStage(3);}],
+      [6800,function(){ticks[0]&&ticks[0].classList.add('ok');}],[7250,function(){ticks[1]&&ticks[1].classList.add('ok');}],
+      [7700,function(){ticks[2]&&ticks[2].classList.add('ok');}],[8150,function(){ticks[3]&&ticks[3].classList.add('ok');}],
+      [9000,function(){setStage(4);}],
+      [12200,function(){pv.classList.add('out');}],
+      [12900,null]];
+    var t=0,k=0,last=0,user=false,onScreen=true;
+    function running(){return !user&&onScreen&&!document.hidden;}
+    function frame(now){requestAnimationFrame(frame);var dt=last?Math.min(80,now-last):0;last=now;
+      if(!running()){pv.classList.add('paused');return;}pv.classList.remove('paused');
+      t+=dt;while(k<EV.length&&t>=EV[k][0]){if(EV[k][1])EV[k][1]();else{ci=(ci+1)%C.length;t=0;k=-1;}k++;}}
+    requestAnimationFrame(frame);
+    pb.addEventListener('click',function(){user=!user;pb.setAttribute('aria-pressed',user?'true':'false');pb.setAttribute('aria-label',user?'הפעלת האנימציה':'עצירת האנימציה');});
+    if('IntersectionObserver' in window)new IntersectionObserver(function(en){onScreen=en[0].isIntersecting;}).observe(pv);
+    window.__pvTime=function(){return t;}; /* screenshot tooling only */
   })();
 
   /* ---------- floating WhatsApp (mobile): hide while scrolling down / reading, show on scroll up; hidden over hero CTAs, contact + footer ---------- */
