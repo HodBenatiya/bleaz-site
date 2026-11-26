@@ -1332,3 +1332,11 @@ body{background:#fff;color:var(--carbon);font:400 16px/1.5 var(--f)}
 .roots+.statement{padding-top:90px}
 @media (max-width:1100px){.rt-in{grid-template-columns:1fr;gap:20px;padding:44px 40px}}
 @media (max-width:860px){.roots{padding-top:72px}.rt-in{padding:32px 22px;border-radius:20px}.rt-h{font-size:44px}.rt-lead{font-size:19px}.rt-body p{font-size:16px}.roots+.statement{padding-top:56px}}
+/* v13.2 · calmer hero pacing */
+.pv-a{transition:opacity .6s ease calc(var(--i)*80ms),transform .8s cubic-bezier(.34,1.56,.64,1) calc(var(--i)*80ms),left 1.4s cubic-bezier(.6,0,.3,1),top 1.4s cubic-bezier(.6,0,.3,1)}
+.pv.conv .pv-a{transition-delay:calc(var(--i)*40ms)}
+.pv-card{transition:transform 1s cubic-bezier(.2,.8,.2,1),opacity .8s ease,box-shadow .6s}
+.pv.out .pv-card{transition:transform .9s cubic-bezier(.45,0,.55,1),opacity .7s ease .2s}
+.pv-s,.pv-ai,.pv-call,.pv-sent,.pv-fit{transition-duration:.6s}
+.pv[data-stage="1"].run .pv-bar i{transition:width 6s linear .4s}
+@media (prefers-reduced-motion:no-preference){.pv[data-stage="1"].run .pv-scan{animation:pvscan 2.4s ease-in-out 2.6s 2}}

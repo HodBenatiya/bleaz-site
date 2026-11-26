@@ -325,15 +325,15 @@
     if(RMq.matches){fill(C[0]);setStage(4);ticks.forEach(function(t){t.classList.add('ok');});return;}
     /* timeline (ms) for one candidate */
     var EV=[[0,function(){fill(C[ci]);ticks.forEach(function(t){t.classList.remove('ok');});pv.classList.remove('out','conv');pv.classList.add('pre','pool','run');setStage(1);}],
-      [1050,function(){pv.classList.add('conv');pv.classList.remove('pre');}],
-      [2000,function(){pv.classList.remove('pool');}],
-      [3600,function(){setStage(2);}],
-      [6300,function(){setStage(3);}],
-      [6800,function(){ticks[0]&&ticks[0].classList.add('ok');}],[7250,function(){ticks[1]&&ticks[1].classList.add('ok');}],
-      [7700,function(){ticks[2]&&ticks[2].classList.add('ok');}],[8150,function(){ticks[3]&&ticks[3].classList.add('ok');}],
-      [9000,function(){setStage(4);}],
-      [12200,function(){pv.classList.add('out');}],
-      [12900,null]];
+      [2400,function(){pv.classList.add('conv');pv.classList.remove('pre');}],
+      [4000,function(){pv.classList.remove('pool');}],
+      [7200,function(){setStage(2);}],
+      [11700,function(){setStage(3);}],
+      [12400,function(){ticks[0]&&ticks[0].classList.add('ok');}],[13100,function(){ticks[1]&&ticks[1].classList.add('ok');}],
+      [13800,function(){ticks[2]&&ticks[2].classList.add('ok');}],[14500,function(){ticks[3]&&ticks[3].classList.add('ok');}],
+      [16400,function(){setStage(4);}],
+      [21400,function(){pv.classList.add('out');}],
+      [22300,null]];
     var t=0,k=0,last=0,user=false,onScreen=true;
     function running(){return !user&&onScreen&&!document.hidden;}
     function frame(now){requestAnimationFrame(frame);var dt=last?Math.min(80,now-last):0;last=now;
