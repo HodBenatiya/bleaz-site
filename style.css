@@ -1317,3 +1317,18 @@ body{background:#fff;color:var(--carbon);font:400 16px/1.5 var(--f)}
 @media (max-width:860px){.hz .ctas{display:grid!important;grid-template-columns:1fr 1fr;gap:10px}.hz .ctas .btn-lg{min-width:0!important;width:100%;padding-left:10px!important;padding-right:10px!important;font-size:16px!important;justify-content:center;white-space:nowrap}}
 @media (max-width:359px){.hz .ctas{grid-template-columns:1fr}}
 .pv-sent svg{color:rgba(255,255,255,.28)}
+
+/* v13.1 · "באנו מהשטח" band (opens the experience/statement block) */
+.roots{padding-top:110px}
+.rt-in{position:relative;overflow:hidden;background:var(--navy);color:#fff;border-radius:var(--r-lg);padding:56px 60px;display:grid;grid-template-columns:.8fr 1.2fr;gap:56px;align-items:center}
+.rt-in .cf-a{position:absolute;top:-30px;left:-30px;width:140px;height:140px;border-radius:50%;background:radial-gradient(closest-side,rgba(191,99,243,.45),rgba(191,99,243,0));pointer-events:none}
+.rt-h{font:500 64px/1.05 var(--disp);color:#fff;margin:18px 0 0}
+.rt-lead{font:500 22px/1.55 var(--f);color:#fff;margin:0 0 14px}
+.rt-body p{font-size:17.5px;line-height:1.65;color:#C7D1DB;margin:0 0 6px}
+.rt-body p b{color:#fff}
+.rt-pts{list-style:none;margin:22px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.rt-pts li{font:500 14px/1 var(--f);padding:10px 14px;border-radius:var(--pill);background:#1D2125;border:1px solid #2C333A;color:#DEE4EA}
+.rt-pts li:last-child{background:var(--blue);border-color:var(--blue);color:#fff}
+.roots+.statement{padding-top:90px}
+@media (max-width:1100px){.rt-in{grid-template-columns:1fr;gap:20px;padding:44px 40px}}
+@media (max-width:860px){.roots{padding-top:72px}.rt-in{padding:32px 22px;border-radius:20px}.rt-h{font-size:44px}.rt-lead{font-size:19px}.rt-body p{font-size:16px}.roots+.statement{padding-top:56px}}
